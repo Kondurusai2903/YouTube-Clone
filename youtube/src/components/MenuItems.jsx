@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MenuItems = () => {
   return (
     <div className="shadow-lg pl-2">
       <ul>
-        <li>Home</li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>Short</li>
         <li>Videos</li>
         <li>Live</li>

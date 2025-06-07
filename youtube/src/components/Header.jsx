@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import Avatar from '@mui/material/Avatar';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleMenu } from './utils/slices/generalSlice';
+import { toggleMenu } from '../utils/slices/generalSlice';
 
 const Head = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
   const handleMenuToggle = () => {
     dispatch(toggleMenu());
   };
+  const fetchSearchSuggestions = async () => {
+    console.log('api call - ' + searchQuery);
+  };
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      fetchSearchSuggestions();
+    }, 500);
+    return () => {
+      console.log('clearing the interval - ' + timeOut);
+      clearTimeout(timeOut);
+    };
+  }, [searchQuery]);
   return (
     <div>
       <div className="grid grid-flow-col justify-between items-center p-2 m-2 ">
@@ -37,11 +51,12 @@ const Head = () => {
             </div>
           </div>
         </div>
-        <div className="flex col-span-2 gap-4">
-          <div className="flex w-full">
+        <div className="flex col-span-2 gap-4 ">
+          <div className="flex w-full relative">
             <input
               type="text"
               placeholder="Search"
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-l-full focus:outline-none "
             />
             <button
@@ -55,6 +70,19 @@ const Head = () => {
                 }}
               />
             </button>
+            {searchQuery && (
+              <div className="absolute top-10 left-5 bg-white mt-2 w-96">
+                <ul flex="flex gap-16">
+                  <li>iphone</li>
+                  <li>iphone1</li>
+                  <li>iphone2</li>
+                  <li>iphone3</li>
+                  <li>iphone4</li>
+                  <li>iphone5</li>
+                  <li>iphone5</li>
+                </ul>
+              </div>
+            )}
           </div>
 
           <button type="button" className="bg-gray-400 rounded-full p-2">

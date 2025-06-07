@@ -9,7 +9,10 @@ const generalSlice = createSlice({
     toggleMenu: (state) => {
       state.isMenuOpen = !state.isMenuOpen;
     },
+    openCloseMenu: (state, action) => {
+      state.isMenuOpen = action.payload;
+    },
   },
 });
-export const { toggleMenu } = generalSlice.actions;
+export const { toggleMenu, openCloseMenu } = generalSlice.actions;
 export default generalSlice.reducer;
