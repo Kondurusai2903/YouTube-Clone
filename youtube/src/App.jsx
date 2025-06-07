@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Head from './components/Header';
 import Body from './components/Body';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MainContainer from './components/MainContainer';
+import WatchPage from './components/WatchPage';
 {
   /**
    * Head
@@ -13,12 +16,29 @@ import Body from './components/Body';
    *         VideoCard
    */
 }
-
+const appRouter = createBrowserRouter([
+  {
+    path: '/',
+    element: <Body />,
+    children: [
+      {
+        path: '/',
+        element: <MainContainer />,
+      },
+      {
+        path: 'watch',
+        element: <WatchPage />,
+      },
+    ],
+  },
+]);
 function App() {
   return (
     <>
       <Head />
-      <Body />
+      <RouterProvider router={appRouter}>
+        <Body />
+      </RouterProvider>
     </>
   );
 }

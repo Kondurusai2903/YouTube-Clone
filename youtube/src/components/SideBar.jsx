@@ -6,7 +6,7 @@ const SideBar = () => {
   const { isMenuOpen } = useSelector((state) => state.generalSlice);
   return (
     isMenuOpen && (
-      <div className="col-span-1 h-[100%]">
+      <div className="col-span-2 w-32 h-[100%]">
         <MenuItems />
       </div>
     )
